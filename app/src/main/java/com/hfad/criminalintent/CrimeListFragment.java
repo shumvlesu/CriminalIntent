@@ -1,14 +1,12 @@
 package com.hfad.criminalintent;
 
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import java.util.List;
 
 public class CrimeListFragment extends Fragment {
@@ -19,9 +17,9 @@ public class CrimeListFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.fragment_crime_list, container,false);
+        View view = inflater.inflate(R.layout.fragment_crime_list, container, false);
         mCrimeRecyclerView = view.findViewById(R.id.crime_recycler_view);
-        mCrimeRecyclerView.setLayoutManager( new LinearLayoutManager (getActivity()) );
+        mCrimeRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         updateUI();
 
@@ -50,13 +48,14 @@ public class CrimeListFragment extends Fragment {
 
         private List<Crime> mCrimes;
 
-        public CrimeAdapter(List<Crime> crimes) {
+        public CrimeAdapter(List<Crime> crimes)
+        {
             mCrimes = crimes;
         }
 
 
         @Override
-        public CrimeHolder  onCreateViewHolder(ViewGroup parent, int viewType){
+        public CrimeHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
             LayoutInflater layoutInflater = LayoutInflater.from(getActivity());
             return new CrimeHolder(layoutInflater, parent);
