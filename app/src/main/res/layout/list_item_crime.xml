@@ -8,23 +8,15 @@
 
     <TextView
         android:id="@+id/crime_title"
-        android:layout_width="0dp"
+        android:layout_width="411dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
         android:text="Crime title"
-        app:layout_constraintBottom_toTopOf="@+id/crime_date"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_chainStyle="packed" />
+        tools:layout_editor_absoluteY="8dp" />
 
     <TextView
         android:id="@+id/crime_date"
-        android:layout_width="0dp"
+        android:layout_width="411dp"
         android:layout_height="wrap_content"
         android:text="Crime Date"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/crime_title" />
+        tools:layout_editor_absoluteY="26dp" />
 </android.support.constraint.ConstraintLayout>
