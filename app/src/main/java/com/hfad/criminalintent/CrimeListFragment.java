@@ -1,10 +1,10 @@
 package com.hfad.criminalintent;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -61,23 +61,22 @@ public class CrimeListFragment extends Fragment {
         public void bind(Crime crime) {
             mCrime = crime;
             mTitleTextView.setText(mCrime.getTitle());
+
             //mDateTextView.setText(mCrime.getDate().toString());
-
-
             String formatedDate = new SimpleDateFormat("EEE, MMM, dd.MM.yyyy", Locale.getDefault()).format(mCrime.getDate());
-
-            //SimpleDateFormat sdf = new SimpleDateFormat("EEE, MMM, dd.MM.yyyy", Locale.getDefault());
-            //String formatedDate = sdf.format(mCrime.getDate());
-
             mDateTextView.setText(formatedDate);
+
             //если презтупление расклыто то выводим наручники
-            mSolvedImageView.setVisibility(crime.isSolved() ? View.VISIBLE:View.GONE);
+            mSolvedImageView.setVisibility(crime.isSolved() ? View.VISIBLE : View.GONE);
         }
 
 
         @Override
         public void onClick(View view) {
-            Toast.makeText(getActivity(), mCrime.getTitle() + " clicked!", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(getActivity(), mCrime.getTitle() + " clicked!", Toast.LENGTH_SHORT).show();
+            //Intent intent = new Intent(getActivity(),CrimeActivity.class);
+            Intent intent = CrimeActivity.newIntent(getActivity(), mCrime.getId());
+            startActivity(intent);
         }
     }
 
