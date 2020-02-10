@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 
 import java.util.UUID;
 
+//Устарел. Заменен CrimePagerActivity
 public class CrimeActivity extends SingleFragmentActivity{
 
     private static final String EXTRA_CRIME_ID = "com.hfad.android.criminalintent.crime_id";

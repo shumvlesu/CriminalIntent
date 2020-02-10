@@ -5,4 +5,6 @@
     <string name="crime_details_label">Подробности</string>
     <string name="crime_solved_label">Решено</string>
     <string name="crime_title_label">Заголовок</string>
+    <string name="first">В начало</string>
+    <string name="last">В конец</string>
 </resources>

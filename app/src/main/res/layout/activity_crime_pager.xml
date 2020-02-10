@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <Button
+        android:id="@+id/first_button"
+        android:layout_width="205dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|left"
+
+        android:background="@color/ic_launcher_background"
+        android:text="@string/first"
+        android:textColor="?attr/colorBackgroundFloating" />
+
+    <Button
+        android:id="@+id/last_button"
+        android:layout_width="205dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|right"
+
+        android:background="@color/ic_launcher_background"
+        android:text="@string/last"
+        android:textColor="?attr/colorBackgroundFloating" />
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/crime_view_pager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        ></android.support.v4.view.ViewPager>
+</FrameLayout>
