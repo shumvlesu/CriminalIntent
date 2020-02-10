@@ -65,7 +65,7 @@ public class CrimePagerActivity extends AppCompatActivity {
             }
         }
 
-        //ДЗ 243 стр. добавление кнопок для перехода
+        //ДЗ 243 стр. добавление кнопок для перехода+
         lastIndex = mCrimes.size() - 1;
         mJumpToFirstButton = findViewById(R.id.first_button);
         mJumpToLastButton = findViewById(R.id.last_button);
@@ -104,4 +104,5 @@ public class CrimePagerActivity extends AppCompatActivity {
             mJumpToLastButton.setEnabled(true);
         }
     }
+    //ДЗ 243 стр. добавление кнопок для перехода-
 }
