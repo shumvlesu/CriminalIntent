@@ -21,6 +21,10 @@ public class CrimePagerActivity extends AppCompatActivity {
 
     private ViewPager mViewPager;
     private List<Crime> mCrimes;
+    private Button mJumpToFirstButton;
+    private Button mJumpToLastButton;
+    private int lastIndex;
+
 
     public static Intent newIntent(Context packageContext, UUID crimeId) {
         Intent intent = new Intent(packageContext, CrimePagerActivity.class);
@@ -28,9 +32,6 @@ public class CrimePagerActivity extends AppCompatActivity {
         return intent;
     }
 
-    private Button mJumpToFirstButton;
-    private Button mJumpToLastButton;
-    private int lastIndex;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,8 +40,6 @@ public class CrimePagerActivity extends AppCompatActivity {
         setContentView(R.layout.activity_crime_pager);
 
         UUID crimeId = (UUID) getIntent().getSerializableExtra(EXTRA_CRIME_ID);
-
-
 
         mViewPager = findViewById(R.id.crime_view_pager);
         mCrimes = CrimeLab.get(this).getCrimes();
