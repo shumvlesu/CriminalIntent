@@ -7,4 +7,5 @@
     <string name="crime_title_label">Заголовок</string>
     <string name="first">В начало</string>
     <string name="last">В конец</string>
+    <string name="date_picker_title">Дата преступления:</string>
 </resources>

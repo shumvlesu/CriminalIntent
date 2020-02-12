@@ -6,4 +6,5 @@
     <string name="crime_solved_label">Solved</string>
     <string name="first">First</string>
     <string name="last">Last</string>
+    <string name="date_picker_title">Date of crime:</string>
 </resources>
