@@ -8,4 +8,6 @@
     <string name="first">В начало</string>
     <string name="last">В конец</string>
     <string name="date_picker_title">Дата преступления:</string>
+    <string name="time_picker_title">Время преступления:</string>
+    <string name="time">Время:</string>
 </resources>

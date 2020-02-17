@@ -11,6 +11,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Locale;
@@ -82,7 +84,11 @@ public class CrimeListFragment extends Fragment {
 
             //mDateTextView.setText(mCrime.getDate().toString());
             String formatedDate = new SimpleDateFormat("EEE, MMM, dd.MM.yyyy", Locale.getDefault()).format(mCrime.getDate());
-            mDateTextView.setText(formatedDate);
+
+            String timeFormat = new SimpleDateFormat(CrimeFragment.TIME_FORMAT,Locale.getDefault()).format(mCrime.getTime());
+
+
+            mDateTextView.setText(formatedDate+", "+getString(R.string.time)+" "+timeFormat);
 
             //если презтупление расклыто то выводим наручники
             mSolvedImageView.setVisibility(crime.isSolved() ? View.VISIBLE : View.GONE);
