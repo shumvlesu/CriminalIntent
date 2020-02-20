@@ -1,19 +1,22 @@
 package com.hfad.criminalintent;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
 
@@ -22,6 +25,13 @@ public class CrimeListFragment extends Fragment {
     private RecyclerView mCrimeRecyclerView;
     private CrimeAdapter mAdapter;
     private int mLastUpdatedPosition = -1;
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
+    }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -42,10 +52,36 @@ public class CrimeListFragment extends Fragment {
         updateUI();
     }
 
+    // реализация меню гл. 13 у фрагмента++
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.fragment_crime_list, menu);
+    }
+
+    //стр 274
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.new_crime:
+                Crime crime = new Crime();
+                CrimeLab.get(getActivity()).addCrime(crime);
+                Intent intent = CrimePagerActivity.newIntent(getActivity(), crime.getId());
+                startActivity(intent);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+    //--
+
 
     private void updateUI() {
-        CrimeLab crimeLab = CrimeLab.get(getActivity());
-        List<Crime> crimes = crimeLab.getCrimes();
+        //CrimeLab crimeLab = CrimeLab.get(getActivity());
+        //List<Crime> crimes = crimeLab.getCrimes();
+        //можно и так
+        List<Crime> crimes = CrimeLab.get(getActivity()).getCrimes();
+
         if (mAdapter == null) {
             mAdapter = new CrimeAdapter(crimes);
             mCrimeRecyclerView.setAdapter(mAdapter);
@@ -56,11 +92,16 @@ public class CrimeListFragment extends Fragment {
                 mAdapter.notifyItemChanged(mLastUpdatedPosition);
                 mLastUpdatedPosition = -1;
             } else {
-                mAdapter.notifyDataSetChanged();
+
+                //стр. 274-275 при кнопке buck созданное преступление не появляется в списке а при up появляется. Что за втф?
+                //upd Разобрался :) notifyDataSetChanged() не всегда корректно работает. Как решение создал setData() Теперь отрабатывает по всем кнопкам.
+                //mAdapter.notifyDataSetChanged();
+                mAdapter.setData(crimes);
             }
         }
 
     }
+
 
 
     private class CrimeHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -114,6 +155,7 @@ public class CrimeListFragment extends Fragment {
 
         private List<Crime> mCrimes;
 
+
         public CrimeAdapter(List<Crime> crimes) {
             mCrimes = crimes;
         }
@@ -137,6 +179,14 @@ public class CrimeListFragment extends Fragment {
         public int getItemCount() {
             return mCrimes.size();
         }
+
+
+        public void setData(List<Crime> list) {
+            this.mCrimes = list;
+            notifyDataSetChanged();
+        }
+
+
     }
 
 

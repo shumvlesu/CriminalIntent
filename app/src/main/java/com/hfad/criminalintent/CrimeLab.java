@@ -24,16 +24,22 @@ public class CrimeLab {
         //mCrimes = new ArrayList<>();
         mCrimes = new LinkedHashMap<>();
 
-        for (int i=0; i<100; i++) {
+        /*  for (int i=0; i<100; i++) {
             Crime crime = new Crime();
             crime.setTitle("Crime #"+i);
             crime.setSolved(i % 2 == 0);
             //mCrimes.add(crime);
             mCrimes.put(crime.getId(), crime);
-        }
-
+        }*/
 
     }
+
+    public void addCrime(Crime c) {
+        //mCrimes.add(c);
+        //Из за дз другой код немного использую чем на стр.273
+        mCrimes.put(c.getId(),c);
+    }
+
 
     public List<Crime> getCrimes() {
         //return mCrimes;
