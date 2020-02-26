@@ -10,4 +10,7 @@
     <string name="time_picker_title">Time of crime:</string>
     <string name="time">Time:</string>
     <string name="new_crime">New crime</string>
+    <string name="show_subtitle">SHOW SUBTITLE</string>
+    <string name="hide_subtitle">Hide Subtitle</string>
+    <string name="subtitle_format">%1$d crimes</string>
 </resources>

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -25,6 +26,8 @@ public class CrimeListFragment extends Fragment {
     private RecyclerView mCrimeRecyclerView;
     private CrimeAdapter mAdapter;
     private int mLastUpdatedPosition = -1;
+    private boolean mSubtitleVisible;
+    private static final String SAVED_SUBTITLE_VISIBLE = "subtitle";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -40,6 +43,11 @@ public class CrimeListFragment extends Fragment {
         mCrimeRecyclerView = view.findViewById(R.id.crime_recycler_view);
         mCrimeRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
+        if (savedInstanceState != null) {
+            mSubtitleVisible = savedInstanceState.getBoolean(SAVED_SUBTITLE_VISIBLE);
+        }
+
+
         updateUI();
 
         return view;
@@ -52,11 +60,26 @@ public class CrimeListFragment extends Fragment {
         updateUI();
     }
 
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putBoolean(SAVED_SUBTITLE_VISIBLE, mSubtitleVisible);
+    }
+
     // реализация меню гл. 13 у фрагмента++
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
         inflater.inflate(R.menu.fragment_crime_list, menu);
+
+        //стр.278
+        MenuItem subtitleItem = menu.findItem(R.id.show_subtitle);
+        if (mSubtitleVisible) {
+            subtitleItem.setTitle(R.string.hide_subtitle);
+        } else {
+            subtitleItem.setTitle(R.string.show_subtitle);
+        }
+
     }
 
     //стр 274
@@ -69,11 +92,38 @@ public class CrimeListFragment extends Fragment {
                 Intent intent = CrimePagerActivity.newIntent(getActivity(), crime.getId());
                 startActivity(intent);
                 return true;
+            case R.id.show_subtitle:
+                mSubtitleVisible = !mSubtitleVisible;
+                getActivity().invalidateOptionsMenu();
+                updateSubtitle();
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
     }
     //--
+
+    private void updateSubtitle() {
+        //стр.276
+        //получаем активность
+        CrimeLab crimeLab = CrimeLab.get(getActivity());
+        //считаем количество записей в ресайклвью
+        int crimeCount = crimeLab.getCrimes().size();
+        //в строку ресурса впихиваем полученное количество
+        String subtitle = getString(R.string.subtitle_format, crimeCount);
+
+        //скрыть или показать субтитры
+        if (!mSubtitleVisible) {
+            subtitle = null;
+        }
+
+
+        //Затем  активность,  являющаяся  хостом  для  CrimeListFragment,  преобразуется в AppCompatActivity.
+        //так как мы используем AppCompat компоненту.
+        AppCompatActivity activity = (AppCompatActivity) getActivity();
+        //Заносим в заголовок активности нашу строку
+        activity.getSupportActionBar().setSubtitle(subtitle);
+    }
 
 
     private void updateUI() {
@@ -98,6 +148,7 @@ public class CrimeListFragment extends Fragment {
                 //mAdapter.notifyDataSetChanged();
                 mAdapter.setData(crimes);
             }
+            updateSubtitle();
         }
 
     }
