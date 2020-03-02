@@ -1,5 +1,6 @@
 package com.hfad.criminalintent;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,9 +16,11 @@ import java.util.List;
 import java.util.UUID;
 
 public class CrimePagerActivity extends AppCompatActivity {
+    //ДЗ 301 стр.
+    //implements CrimeFragment.OnDeleteCrimeListener {
+    //
 
-
-    private static final String EXTRA_CRIME_ID = "com.hfad.android.criminalintent.crime_id";
+    static final String EXTRA_CRIME_ID = "com.hfad.android.criminalintent.crime_id";
 
     private ViewPager mViewPager;
     private List<Crime> mCrimes;
@@ -25,6 +28,14 @@ public class CrimePagerActivity extends AppCompatActivity {
     private Button mJumpToLastButton;
     private int lastIndex;
 
+    //ДЗ 301 стр.
+   /* public void onCrimeIdSelected (UUID crimeId) {
+        Intent data = new Intent();
+        data.putExtra(EXTRA_CRIME_ID, crimeId);
+        setResult(Activity.RESULT_OK, data);
+        finish(); // CrimePagerActivity
+    }*/
+    //
 
     public static Intent newIntent(Context packageContext, UUID crimeId) {
         Intent intent = new Intent(packageContext, CrimePagerActivity.class);

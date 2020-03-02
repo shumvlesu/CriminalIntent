@@ -14,4 +14,5 @@
     <string name="show_subtitle">ПОКАЗАТЬ СУБТИТРЫ</string>
     <string name="hide_subtitle">Скрыть субтитры</string>
     <string name="subtitle_format">Преступлений %1$d шт.</string>
+    <string name="del_crime">Удалить преступление</string>
 </resources>

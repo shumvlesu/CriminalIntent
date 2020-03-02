@@ -56,4 +56,10 @@ public class CrimeLab {
        return mCrimes.get(id);
     }
 
+    //ДЗ Удаление преступления 281стр++
+    public void deleteItem(UUID crimeID) {
+        mCrimes.remove(crimeID);
+    }
+    //--
+
 }
