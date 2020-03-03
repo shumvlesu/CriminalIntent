@@ -46,6 +46,8 @@ public class CrimeListFragment extends Fragment {
         mCrimeRecyclerView = view.findViewById(R.id.crime_recycler_view);
         mCrimeRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         //ДЗ Текст при пустом списке 282 стр.
+        //пришлость испоьзовать лиеар лайоут в fragment_crime_list. Иначе программа вылетала при запуске.
+        //Видимо плохо работают элементы тексвью в сочетании с AppCombat компонентами на одной активити.
         mTextView = view.findViewById(R.id.no_crime_there);
         //--
 
