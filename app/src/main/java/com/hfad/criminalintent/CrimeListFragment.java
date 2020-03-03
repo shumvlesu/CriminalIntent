@@ -24,6 +24,9 @@ import java.util.Locale;
 public class CrimeListFragment extends Fragment {
 
     private RecyclerView mCrimeRecyclerView;
+    //ДЗ Текст при пустом списке 282 стр.
+    private View mTextView;
+    //--
     private CrimeAdapter mAdapter;
     private int mLastUpdatedPosition = -1;
     private boolean mSubtitleVisible;
@@ -42,13 +45,23 @@ public class CrimeListFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_crime_list, container, false);
         mCrimeRecyclerView = view.findViewById(R.id.crime_recycler_view);
         mCrimeRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        //ДЗ Текст при пустом списке 282 стр.
+        mTextView = view.findViewById(R.id.no_crime_there);
+        //--
 
         if (savedInstanceState != null) {
             mSubtitleVisible = savedInstanceState.getBoolean(SAVED_SUBTITLE_VISIBLE);
         }
 
+        //ДЗ Текст при пустом списке 282 стр.
+        if(CrimeLab.get(getActivity()).getCrimes().size() <= 0) {
+            mTextView.setVisibility(View.VISIBLE);
+        } else {
+            updateUI();
+        }
 
-        updateUI();
+        //updateUI();
+        //--
 
         return view;
 

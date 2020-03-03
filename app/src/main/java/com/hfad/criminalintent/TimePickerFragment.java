@@ -1,5 +1,4 @@
 package com.hfad.criminalintent;
-
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.DialogInterface;
