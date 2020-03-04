@@ -154,10 +154,12 @@ public class CrimeListFragment extends Fragment {
             //mAdapter.notifyDataSetChanged();
             //упр 1 на 232
             if (mLastUpdatedPosition > -1) {
+                mAdapter.setCrimes(crimes);
                 mAdapter.notifyItemChanged(mLastUpdatedPosition);
                 mLastUpdatedPosition = -1;
             } else {
 
+                mAdapter.setCrimes(crimes);
                 //стр. 274-275 при кнопке buck созданное преступление не появляется в списке а при up появляется. Что за втф?
                 //upd Разобрался :) notifyDataSetChanged() не всегда корректно работает. Как решение создал setData() Теперь отрабатывает по всем кнопкам.
                 //mAdapter.notifyDataSetChanged();
@@ -246,6 +248,9 @@ public class CrimeListFragment extends Fragment {
             return mCrimes.size();
         }
 
+        public void setCrimes(List<Crime> crimes) {
+            mCrimes = crimes;
+        }
 
         public void setData(List<Crime> list) {
             this.mCrimes = list;

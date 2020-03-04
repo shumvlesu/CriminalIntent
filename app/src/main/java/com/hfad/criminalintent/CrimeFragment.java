@@ -53,6 +53,7 @@ public class CrimeFragment extends Fragment {
             case R.id.delete_crime:
                 // Удаляем crimeID в CrimeLab
                 CrimeLab crimeLab = CrimeLab.get(getActivity());
+                //пока закоментил до дз
                 crimeLab.deleteItem(mCrime.getId());
 
                 // возвращаемся обратно CrimeListFragment по Интенту.
@@ -78,6 +79,13 @@ public class CrimeFragment extends Fragment {
         setHasOptionsMenu(true);
         //
     }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        CrimeLab.get(getActivity()).updateCrime(mCrime);
+    }
+
 
     public static CrimeFragment newInstance(UUID crimeId) {
         Bundle args = new Bundle();
