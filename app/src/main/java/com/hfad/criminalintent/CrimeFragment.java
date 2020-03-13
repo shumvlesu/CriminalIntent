@@ -273,7 +273,7 @@ public class CrimeFragment extends Fragment {
         mTimeButton.setText(timeFormat.format(mCrime.getTime()));
     }
 
-    //метод, который создает четыре строки, соединяет их и возвращает полный отчет.
+    //Vетод, который создает четыре строки, соединяет их и возвращает полный отчет.
     //стр. 306-307
     private String getCrimeReport() {
 
@@ -286,7 +286,7 @@ public class CrimeFragment extends Fragment {
         }
 
         //String dateFormat = "EEE, MMM dd";
-        String dateFormat = "dd MMMM, EEEE";
+        String dateFormat = "dd MMMM, EEEE"; //Пример: 1 марта, среда
         String dateString = android.text.format.DateFormat.format(dateFormat, mCrime.getDate() ).toString();
         String suspect = mCrime.getSuspect();
 
