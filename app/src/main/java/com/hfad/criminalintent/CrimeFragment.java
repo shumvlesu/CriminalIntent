@@ -11,6 +11,7 @@ import android.provider.ContactsContract;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.ShareCompat;
+import android.support.v7.widget.AppCompatImageButton;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -23,6 +24,8 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -46,7 +49,8 @@ public class CrimeFragment extends Fragment {
     private Button mReportButton;
     private Button mSuspectButton;
     private static final int REQUEST_CONTACT = 3;
-
+    private ImageButton mPhotoButton;
+    private ImageView mPhotoView;
 
 
     //ДЗ Удаление преступления 281стр++
@@ -215,6 +219,10 @@ public class CrimeFragment extends Fragment {
             mSuspectButton.setEnabled(false);
         }
         //
+
+        mPhotoButton = (ImageButton) v.findViewById(R.id.crime_camera);
+        mPhotoView = (ImageView) v.findViewById(R.id.crime_photo);
+
 
         return v;
     }
