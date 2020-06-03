@@ -98,12 +98,11 @@ public class CrimeLab {
     }
 
     //Определение местонахождения файла фотографии стр.323
-    //public File getPhotoFile(Crime crime) {
-    //    File filesDir = mContext.getFilesDir();
-    //    return new File(filesDir, crime.getPhotoFilename());
-    //    if (externalFilesDir == null) {
-    //    }
-   // }
+    public File getPhotoFile(Crime crime) {
+        File filesDir = mContext.getFilesDir();
+        return new File(filesDir, crime.getPhotoFilename());
+      //  if (externalFilesDir == null) {}
+    }
 
 
         //Обновление записи бд
