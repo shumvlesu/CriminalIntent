@@ -22,7 +22,7 @@
                 android:id="@+id/crime_photo"
                 android:layout_width="80dp"
                 android:layout_height="80dp"
-                android:background="@android:color/holo_red_dark"
+                android:background="@drawable/cukerberg"
                 android:cropToPadding="true"
                 android:scaleType="centerInside"></android.support.v7.widget.AppCompatImageView>
 
@@ -30,7 +30,7 @@
                 android:id="@+id/crime_camera"
                 android:layout_width="80dp"
                 android:layout_height="77dp"
-                android:background="@drawable/hotpng"
+                android:background="@drawable/camera2"
                 android:scaleType="centerCrop"></android.support.v7.widget.AppCompatImageButton>
 
         </LinearLayout>
