@@ -73,5 +73,11 @@ public class Crime {
         mSuspect = suspect;
     }
 
+    // Добавление свойства для получения имени файла стр.323
+    public String getPhotoFilename() {
+        return "IMG_" + getId().toString() + ".jpg";
+    }
+
+
 
 }

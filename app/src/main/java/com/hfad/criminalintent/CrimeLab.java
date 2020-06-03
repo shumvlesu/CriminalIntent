@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 
 import com.hfad.criminalintent.database.CrimeBaseHelper;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -96,7 +97,16 @@ public class CrimeLab {
         }
     }
 
-    //Обновление записи бд
+    //Определение местонахождения файла фотографии стр.323
+    public File getPhotoFile(Crime crime) {
+        File filesDir = mContext.getFilesDir();
+        return new File(filesDir, crime.getPhotoFilename());
+        if (externalFilesDir == null) {
+        }
+
+
+
+        //Обновление записи бд
     public void updateCrime(Crime crime) {
         String uuidString = crime.getId().toString();
         ContentValues values = getContentValues(crime);
