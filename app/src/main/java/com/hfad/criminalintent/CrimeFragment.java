@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.database.Cursor;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract;
@@ -98,7 +99,6 @@ public class CrimeFragment extends Fragment {
 
         //Cохранение местонахождения файла фотографии стр. 324 (на странице ошибка)
         mPhotoFile = CrimeLab.get(getActivity()).getPhotoFile(mCrime);
-
 
 
         //ДЗ 301 стр.
@@ -198,7 +198,7 @@ public class CrimeFragment extends Fragment {
                 i = Intent.createChooser(i, getString(R.string.send_report));
                 startActivity(i);*/
 
-               //ДЗ стр.317
+                //ДЗ стр.317
                 String title = getString(R.string.send_report);
                 Intent shareIntent = ShareCompat.IntentBuilder.from(getActivity())
                         .setType("text/plain")
@@ -240,7 +240,7 @@ public class CrimeFragment extends Fragment {
         mPhotoButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Uri uri = FileProvider.getUriForFile(getActivity(),"com.hfad.criminalintent.fileprovider", mPhotoFile);
+                Uri uri = FileProvider.getUriForFile(getActivity(), "com.hfad.criminalintent.fileprovider", mPhotoFile);
                 captureImage.putExtra(MediaStore.EXTRA_OUTPUT, uri);
                 List<ResolveInfo> cameraActivities = getActivity()
                         .getPackageManager().queryIntentActivities(captureImage, PackageManager.MATCH_DEFAULT_ONLY);
@@ -252,7 +252,7 @@ public class CrimeFragment extends Fragment {
         });
 
         mPhotoView = (ImageView) v.findViewById(R.id.crime_photo);
-
+        updatePhotoView();
 
         return v;
     }
@@ -260,6 +260,7 @@ public class CrimeFragment extends Fragment {
     //стр.257
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
+
         if (resultCode != Activity.RESULT_OK) {
             return;
         }
@@ -299,6 +300,13 @@ public class CrimeFragment extends Fragment {
                 c.close();
             }
         }
+        // Вызов updatePhotoView() стр. 329
+        else if (requestCode == REQUEST_PHOTO) {
+            Uri uri = FileProvider.getUriForFile(getActivity(), "com.hfad.criminalintent.fileprovider", mPhotoFile);
+            getActivity().revokeUriPermission(uri, Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+            updatePhotoView();
+        }
+
 
     }
 
@@ -311,7 +319,7 @@ public class CrimeFragment extends Fragment {
         mTimeButton.setText(timeFormat.format(mCrime.getTime()));
     }
 
-    //Vетод, который создает четыре строки, соединяет их и возвращает полный отчет.
+    //Метод, который создает четыре строки, соединяет их и возвращает полный отчет.
     //стр. 306-307
     private String getCrimeReport() {
 
@@ -325,7 +333,7 @@ public class CrimeFragment extends Fragment {
 
         //String dateFormat = "EEE, MMM dd";
         String dateFormat = "dd MMMM, EEEE"; //Пример: 1 марта, среда
-        String dateString = android.text.format.DateFormat.format(dateFormat, mCrime.getDate() ).toString();
+        String dateString = android.text.format.DateFormat.format(dateFormat, mCrime.getDate()).toString();
         String suspect = mCrime.getSuspect();
 
         if (suspect == null) {
@@ -337,6 +345,17 @@ public class CrimeFragment extends Fragment {
         String report = getString(R.string.crime_report, mCrime.getTitle(), dateString, solvedString, suspect);
 
         return report;
+    }
+
+    //Обновление mPhotoView стр. 329
+    private void updatePhotoView() {
+        if (mPhotoFile == null || !mPhotoFile.exists()) {
+            //mPhotoView.setImageDrawable(null);
+            mPhotoView.setImageResource(R.drawable.cukerberg);
+        } else {
+            Bitmap bitmap = PictureUtils.getScaledBitmap(mPhotoFile.getPath(), getActivity());
+            mPhotoView.setImageBitmap(bitmap);
+        }
     }
 
 

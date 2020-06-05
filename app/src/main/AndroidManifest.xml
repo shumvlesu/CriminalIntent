@@ -2,6 +2,15 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.hfad.criminalintent">
     <uses-permission android:name="android.permission.READ_CONTACTS" />
+
+    <!-- в  приложении  используется  камера стр. 330
+        В тег добавляется необязательный атрибут android:required. Почему? По умолчанию объявление об использовании некоторой возможности означает,
+    что без нее приложение может работать некорректно. К CriminalIntent это
+    не относится. Мы вызываем resolveActivity(…), чтобы проверить наличие приложения камеры, после чего корректно блокируем кнопку, если приложение не найдено.
+        Атрибут  android:required="false"  корректно  обрабатывает  эту  ситуацию.  Мы сообщаем Android, что приложение может нормально работать без камеры, но
+    некоторые части приложения окажутся недоступными.-->
+    <uses-feature android:name="android.hardware.camera" android:required="false"/>
+
     <!--  Из за ошибки при запуске на странице 309 (примерно)
         на сайте подсказали поменять это значение на false
         android:allowBackup="true"-->
