@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    /* стр. 338
+    для  устройств  с  экраном  меньше  заданного  размера  использовать  activity_fragment.xml;
+     для  устройств  с  экраном  больше  заданного  размера  использовать  activity_twopane.xml.
+    */
+   <item name="activity_masterdetail" type="layout">@layout/activity_twopane</item>
+</resources>
