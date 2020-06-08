@@ -66,6 +66,8 @@ public class CrimeFragment extends Fragment {
     private File mPhotoFile;
     private static final int REQUEST_PHOTO = 4;
 
+    private Callbacks mCallbacks;
+
 
     //ДЗ Удаление преступления 281стр++
 
@@ -94,6 +96,14 @@ public class CrimeFragment extends Fragment {
     }
     //ДЗ------------------
 
+    //Стр. 345
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        mCallbacks = (Callbacks) context;
+    }
+
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -116,6 +126,21 @@ public class CrimeFragment extends Fragment {
     public void onPause() {
         super.onPause();
         CrimeLab.get(getActivity()).updateCrime(mCrime);
+    }
+
+    //Стр. 345
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        mCallbacks = null;
+    }
+
+
+    /**Стр. 345
+     * Необходимый интерфейс для активности-хоста.
+     */
+    public interface Callbacks {
+        void onCrimeUpdated(Crime crime);
     }
 
 
@@ -147,6 +172,8 @@ public class CrimeFragment extends Fragment {
             public void onTextChanged(
                     CharSequence s, int start, int before, int count) {
                 mCrime.setTitle(s.toString());
+                //Стр.347
+                updateCrime();
             }
 
             @Override
@@ -190,6 +217,8 @@ public class CrimeFragment extends Fragment {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 mCrime.setSolved(isChecked);
+                //Стр.347
+                updateCrime();
             }
         });
 
@@ -286,11 +315,15 @@ public class CrimeFragment extends Fragment {
         if (requestCode == REQUEST_DATE) {
             Date date = (Date) data.getSerializableExtra(DatePickerFragment.EXTRA_DATE);
             mCrime.setDate(date);
+            //Стр. 347
+            updateCrime();
             updateDate();
         }
         if (requestCode == REQUEST_TIME) {
             Date time = (Date) data.getSerializableExtra(TimePickerFragment.EXTRA_TIME);
             mCrime.setTime(time);
+            //Стр.347
+            updateCrime();
             updateTime();
         }
         //ответ от приложения с контактами стр.314
@@ -303,8 +336,7 @@ public class CrimeFragment extends Fragment {
             };
             // Выполнение запроса - contactUri здесь выполняет функции
             // условия "where"
-            Cursor c = getActivity().getContentResolver()
-                    .query(contactUri, queryFields, null, null, null);
+            Cursor c = getActivity().getContentResolver().query(contactUri, queryFields, null, null, null);
             try {
                 // Проверка получения результатов
                 if (c.getCount() == 0) {
@@ -314,6 +346,8 @@ public class CrimeFragment extends Fragment {
                 c.moveToFirst();
                 String suspect = c.getString(0);
                 mCrime.setSuspect(suspect);
+                //347
+                updateCrime();
                 mSuspectButton.setText(suspect);
             } finally {
                 c.close();
@@ -323,10 +357,18 @@ public class CrimeFragment extends Fragment {
         else if (requestCode == REQUEST_PHOTO) {
             Uri uri = FileProvider.getUriForFile(getActivity(), "com.hfad.criminalintent.fileprovider", mPhotoFile);
             getActivity().revokeUriPermission(uri, Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+            //347
+            updateCrime();
             updatePhotoView();
         }
 
 
+    }
+
+    //Стр. 346
+    private void updateCrime() {
+        CrimeLab.get(getActivity()).updateCrime(mCrime);
+        mCallbacks.onCrimeUpdated(mCrime);
     }
 
     private void updateDate() {

@@ -15,10 +15,16 @@ import android.widget.Button;
 import java.util.List;
 import java.util.UUID;
 
-public class CrimePagerActivity extends AppCompatActivity {
+public class CrimePagerActivity extends AppCompatActivity implements CrimeFragment.Callbacks {
     //ДЗ 301 стр.
     //implements CrimeFragment.OnDeleteCrimeListener {
     //
+
+    //Стр.346
+    @Override
+    public void onCrimeUpdated(Crime crime) {
+    }
+
 
     static final String EXTRA_CRIME_ID = "com.hfad.android.criminalintent.crime_id";
 

@@ -32,7 +32,24 @@ public class CrimeListFragment extends Fragment {
     private boolean mSubtitleVisible;
     private static final String SAVED_SUBTITLE_VISIBLE = "subtitle";
 
+    private Callbacks mCallbacks;
+
+    /** Стр.341
+     * Обязательный интерфейс для активности-хоста.
+     */
+    public interface Callbacks {
+        void onCrimeSelected(Crime crime);
+    }
     @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        mCallbacks = (Callbacks) context;
+    }
+
+
+
+
+        @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
@@ -81,6 +98,14 @@ public class CrimeListFragment extends Fragment {
         outState.putBoolean(SAVED_SUBTITLE_VISIBLE, mSubtitleVisible);
     }
 
+    //Стр. 341
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        mCallbacks = null;
+    }
+
+
     // реализация меню гл. 13 у фрагмента++
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
@@ -104,8 +129,12 @@ public class CrimeListFragment extends Fragment {
             case R.id.new_crime:
                 Crime crime = new Crime();
                 CrimeLab.get(getActivity()).addCrime(crime);
-                Intent intent = CrimePagerActivity.newIntent(getActivity(), crime.getId());
-                startActivity(intent);
+                //Intent intent = CrimePagerActivity.newIntent(getActivity(), crime.getId());
+                //startActivity(intent);
+                //Стр.343
+                updateUI();
+                mCallbacks.onCrimeSelected(crime);
+                //
                 return true;
             case R.id.show_subtitle:
                 mSubtitleVisible = !mSubtitleVisible;
@@ -141,7 +170,7 @@ public class CrimeListFragment extends Fragment {
     }
 
 
-    private void updateUI() {
+    public void updateUI() {
         //CrimeLab crimeLab = CrimeLab.get(getActivity());
         //List<Crime> crimes = crimeLab.getCrimes();
         //можно и так
@@ -211,11 +240,17 @@ public class CrimeListFragment extends Fragment {
 
             //CrimeActivity заменили на CrimePagerActivity
             //Intent intent = CrimeActivity.newIntent(getActivity(), mCrime.getId());
-            Intent intent = CrimePagerActivity.newIntent(getActivity(), mCrime.getId());
 
+
+
+            //Intent intent = CrimePagerActivity.newIntent(getActivity(), mCrime.getId());
             //упр 1 на 232
             mLastUpdatedPosition = this.getAdapterPosition();
-            startActivity(intent);
+            //startActivity(intent);
+            //Стр. 343
+            mCallbacks.onCrimeSelected(mCrime);
+
+
         }
     }
 
