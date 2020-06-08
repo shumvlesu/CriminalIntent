@@ -20,13 +20,12 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <android.support.v7.widget.AppCompatImageView
+            <ImageButton
                 android:id="@+id/crime_photo"
                 android:layout_width="80dp"
                 android:layout_height="80dp"
-                android:cropToPadding="true"
-                android:scaleType="centerInside"
-                tools:srcCompat="@drawable/cukerberg"></android.support.v7.widget.AppCompatImageView>
+                android:scaleType="centerCrop"
+                tools:srcCompat="@drawable/cukerberg"></ImageButton>
 
             <android.support.v7.widget.AppCompatImageButton
                 android:id="@+id/crime_camera"

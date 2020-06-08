@@ -16,6 +16,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.ShareCompat;
 import android.support.v4.content.FileProvider;
 import android.support.v7.widget.AppCompatImageButton;
+import android.support.v7.widget.AppCompatImageView;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -30,6 +31,7 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import java.io.File;
 import java.text.DateFormat;
@@ -39,6 +41,10 @@ import java.util.List;
 import java.util.UUID;
 
 public class CrimeFragment extends Fragment {
+
+    //ДЗ. стр 330, создание детального просмотра фото.
+    private static final String DIALOG_PHOTO = "DialogPhoto";
+    //
 
     public static final String TIME_FORMAT = "hh:mm:ss a";
     private static final String ARG_CRIME_ID = "crime_id";
@@ -251,11 +257,24 @@ public class CrimeFragment extends Fragment {
             }
         });
 
-        mPhotoView = (ImageView) v.findViewById(R.id.crime_photo);
+        mPhotoView = v.findViewById(R.id.crime_photo);
+
+        //ДЗ стр. 330 Вывод увеличенного изображения
+        mPhotoView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentManager manager = getFragmentManager();
+                PhotoViewerFragment dialog = PhotoViewerFragment.newInstance(mPhotoFile);
+                dialog.show(manager, DIALOG_PHOTO);
+            }
+        });
+        //
+
         updatePhotoView();
 
         return v;
     }
+
 
     //стр.257
     @Override
