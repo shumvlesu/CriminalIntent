@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -179,6 +180,8 @@ public class CrimeListFragment extends Fragment {
         if (mAdapter == null) {
             mAdapter = new CrimeAdapter(crimes);
             mCrimeRecyclerView.setAdapter(mAdapter);
+            //ДЗ 349 стр.
+            initItemTouchHelper();
         } else {
             //mAdapter.notifyDataSetChanged();
             //упр 1 на 232
@@ -198,6 +201,31 @@ public class CrimeListFragment extends Fragment {
         }
 
     }
+
+
+    //ДЗ 349 стр.
+    private void initItemTouchHelper() {
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(
+                new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.END) {
+                    @Override
+                    public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
+                        return false;
+                    }
+
+                    @Override
+                    public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
+                        if(direction == ItemTouchHelper.END) {
+                            CrimeLab cl = CrimeLab.get(getActivity());
+                            //cl.deleteCrime(mAdapter.mCrimes.get(viewHolder.getAdapterPosition()).getId());
+                            cl.deleteItem(mAdapter.mCrimes.get(viewHolder.getAdapterPosition()).getId());
+                            updateUI();
+                        }
+                    }
+                }
+        );
+        itemTouchHelper.attachToRecyclerView(mCrimeRecyclerView);
+    }
+
 
 
 
