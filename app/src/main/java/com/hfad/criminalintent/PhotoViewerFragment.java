@@ -36,7 +36,7 @@ public class PhotoViewerFragment extends DialogFragment {
 
         View view = inflater.inflate(R.layout.dialog_photo, container, false);
 
-        mPhotoView = (ImageView) view.findViewById(R.id.photo_view_dialog);
+        mPhotoView = view.findViewById(R.id.photo_view_dialog);
 
         if (mPhotoFile == null || !mPhotoFile.exists()) {
             mPhotoView.setImageDrawable(null);
